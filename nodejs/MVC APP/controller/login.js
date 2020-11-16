@@ -1,5 +1,5 @@
 const express 	= require('express');
-const mysql 	= require('mysql');
+const userModel	= require.main.require('./models/userModel');
 const router 	= express.Router();
 
 router.get('/', (req, res)=>{
@@ -7,37 +7,19 @@ router.get('/', (req, res)=>{
 })
 
 router.post('/', (req, res)=>{
-	
-	var connection = mysql.createConnection({
-	  host     : '127.0.0.1',
-	  user     : 'root',
-	  password : '',
-	  database : 'node1'
-	});
-	 
 
-	connection.connect(function(err) {
-	  if (err) {
-	    console.error('error connecting: ' + err.stack);
-	    return;
-	  }	 
-	  console.log('connected as id ' + connection.threadId);
-	});
+	var user = {
+		username: req.body.username,
+		password: req.body.password
+	};
 
-	var sql = "select * from user where username='"+req.body.username+"' and password='"+req.body.password+"'";
-	//var sql = "select * from user ";
-
-	connection.query(sql, function (error, results) { 
-	  	if(results.length > 0 ){
+	userModel.validate(user, function(status){
+		if(status){
 			res.cookie('uname', req.body.username);
-			res.redirect('/home');		
+			res.redirect('/home');	
 		}else{
 			res.redirect('/login');
 		}
-	});
-
-	connection.end(function(err) {
-		console.log('connection closed!');	  
 	});
 
 })

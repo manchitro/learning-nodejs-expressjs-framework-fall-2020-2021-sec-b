@@ -1,6 +1,6 @@
 const express = require('express');
+const userModel	= require.main.require('./models/userModel');
 const router = express.Router();
-const mysql = require('mysql');
 
 router.get('/create', (req, res)=>{
 	res.render('user/create'); 
@@ -8,181 +8,63 @@ router.get('/create', (req, res)=>{
 
 router.post('/create', (req, res)=>{
 
-	var connection = mysql.createConnection({
-		host     : '127.0.0.1',
-		user     : 'root',
-		password : '',
-		database : 'node1'
-	});
+	var user = {
+		username: 	req.body.username,
+		password: 	req.body.password,
+		type	: 	req.body.type
+	};
 
-	connection.connect(function(err) {
-		if (err) {
-		console.error('error connecting: ' + err.stack);
-		return;
-		}	 
-		console.log('connected as id ' + connection.threadId);
-	});
-
-	var uname = req.body.username;
-	var pass = req.body.password;
-	var email = req.body.email;
-	var dept = req.body.dept;
-
-	var sql = "INSERT INTO user(username, password, email, dept) VALUES ('"+ uname +"','"+ pass +"','"+ email +"','"+ dept +"')";
-
-	connection.query(sql, function (err, result) {
-		if (err){
-			throw err;
+	userModel.insert(user, function(status){
+		if(status){
+			res.redirect('/home/userlist');
+		}else{
+			res.redirect('user/create');
 		}
-
-		console.log("1 record inserted");
-	  });
-
-	//res.send('posted');
-	res.redirect('/home/userlist'); 
+	});
 })
 
 
 router.get('/edit/:id', (req, res)=>{
 
-	var data = req.params.id;
+	//var data = req.params.id;
 	//res.send(data);
-	var connection = mysql.createConnection({
-		host     : '127.0.0.1',
-		user     : 'root',
-		password : '',
-		database : 'node1'
-	});
+	var user ={
+		id: req.params.id,
+		username: 'alamin',
+		password: '123',
+		email: 'alamin@gmail.com',
+		dept: 'CS'
+	};
 
-	connection.connect(function(err) {
-		if (err) {
-		console.error('error connecting: ' + err.stack);
-		return;
-		}	 
-		console.log('connected as id ' + connection.threadId);
-	});
-
-	sql = "select * from user where id = '" + data + "'";
-
-	connection.query(sql, function (error, results) { 
-		if(results.length > 0 ){
-			var user ={
-				id: results[0].id,
-				username: results[0].username,
-				password: results[0].password,
-				email: results[0].email,
-				dept: results[0].dept,
-			};	
-
-			console.log(user);
-
-			res.render('user/edit', user);
-	  	}else{
-		  res.redirect('/home/userlist');
-	  	}
-  });
-
+	res.render('user/edit', user);
 })
 
 
 router.post('/edit/:id', (req, res)=>{
 
-	var uname = req.body.username;
-	var email = req.body.email;
-	var pass = req.body.password;
-	var dept = req.body.dept;
-
-	var connection = mysql.createConnection({
-		host     : '127.0.0.1',
-		user     : 'root',
-		password : '',
-		database : 'node1'
-	});
-
-	connection.connect(function(err) {
-		if (err) {
-		console.error('error connecting: ' + err.stack);
-		return;
-		}	 
-		console.log('connected as id ' + connection.threadId);
-	});
-
-	sql = "UPDATE user SET username='"+uname+"',password='"+pass+"',email='"+email+"',dept='"+dept+"' WHERE id='"+req.params.id+"'";
-
-	connection.query(sql, function (error, results) { 
-		if (error){
-			throw error;
-		}
-
-		console.log("1 record updated");
-  	});
+	//req.body.username
+	//req.body.email
+	//req.body.password
+	//req.body.dept
 
 	res.redirect('/home/userlist');
 })
 
 router.get('/delete/:id', (req, res)=>{
-	var data = req.params.id;
-	//res.send(data);
-	var connection = mysql.createConnection({
-		host     : '127.0.0.1',
-		user     : 'root',
-		password : '',
-		database : 'node1'
-	});
+	var user ={
+		id: req.params.id,
+		username: 'alamin',
+		password: '123',
+		email: 'alamin@gmail.com',
+		dept: 'CS'
+	};
 
-	connection.connect(function(err) {
-		if (err) {
-		console.error('error connecting: ' + err.stack);
-		return;
-		}	 
-		console.log('connected as id ' + connection.threadId);
-	});
-
-	sql = "select * from user where id = '" + data + "'";
-
-	connection.query(sql, function (error, results) { 
-		if(results.length > 0 ){
-			var user ={
-				id: results[0].id,
-				username: results[0].username,
-				password: results[0].password,
-				email: results[0].email,
-				dept: results[0].dept,
-			};	
-
-			console.log(user);
-
-			res.render('user/delete', user);
-	  	}else{
-		  res.redirect('/home/userlist');
-	  	}
-  });
+	res.render('user/delete', user);
 })
 
 router.post('/delete/:id', (req, res)=>{
 	
 	//delete from DB
-	var connection = mysql.createConnection({
-		host     : '127.0.0.1',
-		user     : 'root',
-		password : '',
-		database : 'node1'
-	});
-
-	connection.connect(function(err) {
-		if (err) {
-		console.error('error connecting: ' + err.stack);
-		return;
-		}	 
-		console.log('connected as id ' + connection.threadId);
-	});
-
-	sql = "delete from user where id='"+req.params.id+"'";
-
-	connection.query(sql, function (error, results) { 
-		if(error) throw error;
-	  });
-
 	res.redirect('/home/userlist');
 })
 
