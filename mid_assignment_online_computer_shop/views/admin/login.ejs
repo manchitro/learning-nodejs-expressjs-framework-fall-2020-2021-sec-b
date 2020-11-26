@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/styles'); -%>
+    <title>Admin Login</title>
+  </head>
+  <body>
+    <main id="main">
+      <section>
+        <div class="row justify-content-center">
+          <div class="col col-sm-7 col-lg-5 col-xl-3 mt-5 mb-5" id="login-box">
+            <h2>Admin Login</h2>
+            <br />
+            <p class="text-success"><%= success %></p>
+            <p class="text-danger"><%= error %></p>
+            <form method="post" action="/admin/login">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Email / Username"
+                name="uid"
+              /><br />
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                name="password"
+              /><br />
+              <button class="btn-lg btn-dark btn-block" type="submit">
+                Login</button
+              ><br />
+            </form>
+            <div class="text-center">
+              <a href="/admin/signup">Create an Account</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <%- include('../partials/scripts'); -%>
+</html>

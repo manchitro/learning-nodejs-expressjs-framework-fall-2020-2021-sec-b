@@ -1,0 +1,167 @@
+<div class="container">
+  <nav class="navbar navbar-light">
+    <div class="row w-100 align-items-center">
+      <div class="col-2">
+        <span class="navbar-brand mb-0 h1">Computer Shop</span>
+      </div>
+      <div class="col-7">
+        <form class="form-inline flex-nowrap">
+          <input
+            class="form-control mr-sm-2 w-75"
+            type="search"
+            placeholder="Search for products"
+            aria-label="Search"
+          />
+          <button
+            class="btn btn-outline-success my-2 my-sm-0 w-25"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+      <div class="col-1 px-auto">
+        <img
+          src="/assets/images/cart.svg"
+          alt="cart-icon"
+          width="30px"
+          height="30px"
+        />
+        0
+      </div>
+      <% if(!user.id){ %>
+      <div class="col-1"><a href="/login">Login</a></div>
+      <div class="col-1"><a href="/signup">Signup</a></div>
+      
+      <% }else{ %>
+        <div class="col-1"><%= user.fullName%></div>
+        <div class="col-1"><a href="/logout">logout</a></div>
+      <% } %>
+    </div>
+    <div class="row w-100 align-items-center font-weight-bold">
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/">HOME</a></li>
+          <li class="drop-down">
+            <a href="#">CPU</a>
+            <ul>
+              <li><a href="">AMD</a></li>
+              <li><a href="">INTEL</a></li>
+            </ul>
+          </li>
+          <li class="drop-down">
+            <a href="#">MOTHERBOARDS</a>
+            <ul>
+              <li><a href="">ASUS (AMD)</a></li>
+              <li><a href="">ASUS (INTEL)</a></li>
+              <li><a href="">MSI (AMD)</a></li>
+              <li><a href="">MSI (INTEL)</a></li>
+              <li><a href="">GIGABYTE (AMD)</a></li>
+              <li><a href="">GIGABYTE (INTEL)</a></li>
+            </ul>
+          </li>
+          <li class="drop-down">
+            <a href="#">RAM</a>
+            <ul>
+              <li><a href="">G.Skill</a></li>
+              <li><a href="">Transcend</a></li>
+              <li><a href="">TwinMOS</a></li>
+              <li><a href="">HP</a></li>
+              <li><a href="">Corsair</a></li>
+            </ul>
+          </li>
+          <li class="drop-down">
+            <a href="#">CASINGS</a>
+            <ul>
+              <li><a href="">ANTEC</a></li>
+              <li><a href="">LIAN LI</a></li>
+              <li><a href="">COOLER MASTER</a></li>
+              <li><a href="">KWG</a></li>
+              <li><a href="">Corsair</a></li>
+            </ul>
+          </li>
+          <li class="drop-down">
+            <a href="#">STORAGE DEVICES</a>
+            <ul>
+              <li class="drop-down">
+                <a href="">SSD</a>
+                <ul>
+                  <li><a href="">WESTERN DIGITAL</a></li>
+                  <li><a href="">TRANSCEND</a></li>
+                  <li><a href="">SAMSUNG</a></li>
+                </ul>
+              </li>
+              <li class="drop-down">
+                <a href="">HDD</a>
+                <ul>
+                  <li><a href="">WESTERN DIGITAL</a></li>
+                  <li><a href="">TOSHIBA</a></li>
+                  <li><a href="">SEAGATE</a></li>
+                </ul>
+              </li>
+              <li class="drop-down">
+                <a href="">PORTABLE HDD</a>
+                <ul>
+                  <li><a href="">TOSHIBA</a></li>
+                  <li><a href="">SEAGATE</a></li>
+                  <li><a href="">ADATA</a></li>
+                </ul>
+              </li>
+              <li class="drop-down">
+                <a href="">FLASH DRIVES</a>
+                <ul>
+                  <li><a href="">TRANSCEND</a></li>
+                  <li><a href="">TWINMOS</a></li>
+                  <li><a href="">SANDISK</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="drop-down">
+            <a href="#">MONITORS</a>
+            <ul>
+              <li><a href="">ACER</a></li>
+              <li><a href="">ASUS</a></li>
+              <li><a href="">BENQ</a></li>
+              <li><a href="">DELL</a></li>
+            </ul>
+          </li>
+          <li class="drop-down">
+            <a href="#">NOTEBOOKS & LAPTOPS</a>
+            <ul>
+              <li class="drop-down">
+                <a href="">NOTEBOOKS</a>
+                <ul>
+                  <li><a href="">ACER</a></li>
+                  <li><a href="">DELL</a></li>
+                  <li><a href="">HP</a></li>
+                  <li><a href="">LENOVO</a></li>
+                  <li><a href="">MACBOOK</a></li>
+                </ul>
+              </li>
+              <li class="drop-down">
+                <a href="">GAMING LAPTOPS</a>
+                <ul>
+                  <li><a href="">RAZER</a></li>
+                  <li><a href="">HP</a></li>
+                  <li><a href="">ASUS</a></li>
+                  <li><a href="">MSI</a></li>
+                </ul>
+              </li>
+              <li class="drop-down">
+                <a href="">PREMIUM ULTRABOOKS</a>
+                <ul>
+                  <li><a href="">MICROSOFT</a></li>
+                  <li><a href="">ACER</a></li>
+                  <li><a href="">ASUS</a></li>
+                  <li><a href="">HP</a></li>
+                  <li><a href="">DELL</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+</div>

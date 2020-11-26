@@ -1,0 +1,46 @@
+const express 	= require('express');
+const router 	= express.Router();
+const userModel = require.main.require('./models/userModel');
+
+router.get('/', (req, res)=>{
+    var errorMessage = req.query.error;
+	res.render('customer/signup', {alert: errorMessage});	
+});
+
+router.post('/', (req, res)=>{
+    var user = {
+        fullName : req.body.fullName,
+        username : req.body.username,
+        email : req.body.email,
+        phone : req.body.phone,
+        address: req.body.address,
+        password: req.body.password,
+        userType: 1,
+    }
+    console.log(JSON.stringify(user));
+
+    userModel.getByEmail(user, function(result){
+        if(result.length > 0){
+            res.redirect('/signup?error=' + encodeURIComponent('This email is taken!'));
+        }
+        else{
+            userModel.getByUsername(user, function(result){
+                if(result.length > 0){
+                    res.redirect('/signup?error=' + encodeURIComponent('This username is taken!'));
+                }
+                else{
+                    userModel.insert(user, function(status){
+                        if(status == true){
+                            res.redirect('/login?success=' + encodeURIComponent('Account created! Please login with your email/username and password'));
+                        }
+                        else{
+                            res.redirect('/signup?error='  + encodeURIComponent('Your account could not be created. Please try again later'));
+                        }
+                    });
+                }
+            })
+        }
+    });
+});
+
+module.exports = router;
